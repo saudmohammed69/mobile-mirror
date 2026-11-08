@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Live Mirror</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #0b0f14; color: #e6e9ee; height: 100vh;
+    font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  #bar {
+    display: flex; align-items: center; gap: 14px; padding: 10px 16px;
+    background: #11161d; border-bottom: 1px solid #1c2430;
+  }
+  #dot { width: 12px; height: 12px; border-radius: 50%; background: #e5484d; }
+  #dot.live { background: #30c76b; box-shadow: 0 0 8px #30c76b; }
+  .mono { font-family: ui-monospace, Consolas, monospace; color: #8b95a5; }
+  #wrap {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  #screen { max-width: 100%; max-height: 100%; object-fit: contain; }
+  #hint { position: absolute; color: #5b6572; pointer-events: none; }
+  #controls {
+    display: flex; gap: 10px; padding: 12px 16px;
+    background: #11161d; border-top: 1px solid #1c2430;
+  }
+  button {
+    background: #1c2430; color: #e6e9ee; border: 1px solid #2a3542;
+    padding: 10px 18px; border-radius: 8px; cursor: pointer; font-size: 14px;
+  }
+  button:hover { background: #26303d; }
+</style>
+</head>
+<body>
+  <div id="bar">
+    <span id="dot"></span>
+    <span id="status">connecting…</span>
+    <span class="mono" id="fps">0 fps</span>
+    <span class="mono" id="lat">— ms</span>
+  </div>
+
+  <div id="wrap">
+    <span id="hint">waiting for phone…</span>
+    <img id="screen" alt="live screen">
+  </div>
+
+  <div id="controls">
+    <button onclick="cmd('START')">START</button>
+    <button onclick="cmd('STOP')">STOP</button>
+    <button onclick="cmd('SCREENSHOT')">SCREENSHOT</button>
+    <button onclick="fullscreen()">FULLSCREEN</button>
+  </div>
+
+<script>
+  let ws;
+  let frames = 0;
+  let lastFrame = 0;
+  let urlObj = null;
+
+  const img = document.getElementById('screen');
+  const dot = document.getElementById('dot');
+  const statusEl = document.getElementById('status');
+  const fpsEl = document.getElementById('fps');
+  const latEl = document.getElementById('lat');
+  const hint = document.getElementById('hint');
+
+  function connect() {
+    const proto = location.protocol === 'https:' ? 'wss://' : 'ws://';
+    ws = new WebSocket(proto + location.host + '/ws');
+    ws.binaryType = 'arraybuffer';
+
+    ws.onopen = () => { statusEl.textContent = 'connected (viewer)'; };
+    ws.onclose = () => {
+      dot.classList.remove('live');
+      statusEl.textContent = 'reconnecting…';
+      setTimeout(connect, 1500);
+    };
+    ws.onerror = () => { try { ws.close(); } catch (e) {} };
+
+    ws.onmessage = (e) => {
+      if (typeof e.data === 'string') return; // text ping/status, ignore
+      const blob = new Blob([e.data], { type: 'image/jpeg' });
+      if (urlObj) URL.revokeObjectURL(urlObj);
+      urlObj = URL.createObjectURL(blob);
+      img.src = urlObj;
+      hint.style.display = 'none';
+      dot.classList.add('live');
+      statusEl.textContent = 'live';
+      frames++;
+      lastFrame = performance.now();
+    };
+  }
+
+  setInterval(() => {
+    fpsEl.textContent = frames + ' fps';
+    frames = 0;
+    if (img.src) latEl.textContent = Math.max(0, Math.round(performance.now() - lastFrame)) + ' ms';
+  }, 1000);
+
+  function cmd(c) { if (ws && ws.readyState === 1) ws.send(c); }
+
+  function fullscreen() {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+
+  connect();
+</script>
+</body>
+</html>
