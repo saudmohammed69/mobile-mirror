@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Suyeon — install</title>
+<meta name="theme-color" content="#0b0713">
+<style>
+  :root{
+    --bg:#0b0713; --line:#2b1b47; --ink:#f3ecff; --dim:#a894c9;
+    --accent:#a874ff; --accent2:#ff5ea8; --warn:#ffc857;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;padding:0 20px 72px;min-height:100vh;color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:
+      radial-gradient(55rem 38rem at 50% -10%, rgba(168,116,255,.22), transparent 60%),
+      radial-gradient(38rem 28rem at 95% 8%, rgba(255,94,168,.13), transparent 60%),
+      var(--bg);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:600px;margin:0 auto}
+  header{padding:52px 0 28px;text-align:center}
+  .mark{
+    width:82px;height:82px;margin:0 auto 20px;border-radius:24px;
+    background:linear-gradient(160deg,#2c1a4d,#170d29);border:1px solid var(--line);
+    display:grid;place-items:center;
+    box-shadow:0 0 55px rgba(168,116,255,.35), inset 0 1px 0 rgba(255,255,255,.06);
+  }
+  .mark svg{width:40px;height:40px}
+  h1{font-size:31px;margin:0 0 8px;letter-spacing:-.02em}
+  h1 span{background:linear-gradient(100deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:var(--dim);margin:0;font-size:15px}
+  .card{
+    background:linear-gradient(180deg,rgba(26,16,48,.92),rgba(18,11,32,.92));
+    border:1px solid var(--line);border-radius:20px;padding:24px;margin:0 0 16px;
+  }
+  .dl{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    padding:19px 22px;border-radius:15px;text-decoration:none;
+    background:linear-gradient(100deg,var(--accent),#8a4dff 55%,var(--accent2));
+    color:#12091f;font-weight:700;font-size:17px;
+    box-shadow:0 10px 34px rgba(168,116,255,.32);
+  }
+  .dl:active{transform:translateY(1px)}
+  .meta{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+    color:var(--dim);font-size:13px;margin-top:13px}
+  .meta b{color:var(--ink)}
+  h2{font-size:12.5px;text-transform:uppercase;letter-spacing:.14em;
+    color:var(--dim);margin:0 0 18px;font-weight:600}
+  ol{list-style:none;margin:0;padding:0;counter-reset:s}
+  ol li{position:relative;padding:0 0 20px 44px;counter-increment:s}
+  ol li:last-child{padding-bottom:0}
+  ol li::before{
+    content:counter(s);position:absolute;left:0;top:-1px;
+    width:29px;height:29px;border-radius:9px;display:grid;place-items:center;
+    background:rgba(168,116,255,.14);border:1px solid rgba(168,116,255,.34);
+    color:var(--accent);font-size:13.5px;font-weight:700;
+  }
+  ol strong{display:block;margin-bottom:3px}
+  ol p{margin:0;color:var(--dim);font-size:14.5px}
+  .path{display:inline-block;background:rgba(255,255,255,.05);
+    border:1px solid var(--line);border-radius:7px;padding:2px 7px;margin:3px 2px 0 0;
+    font:12.5px/1.5 ui-monospace,Menlo,monospace;color:#dcc9ff}
+  .note{border-left:3px solid var(--warn);background:rgba(255,200,87,.07);
+    border-radius:0 12px 12px 0;padding:14px 16px;margin:0;font-size:14.5px;
+    color:#f0e2bd}
+  .note b{color:var(--warn)}
+  details{border-top:1px solid var(--line);padding:14px 0}
+  details:first-of-type{border-top:0;padding-top:0}
+  details:last-of-type{padding-bottom:0}
+  summary{cursor:pointer;font-weight:600;font-size:15px;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"+";color:var(--accent);display:inline-block;
+    width:19px;font-weight:700}
+  details[open] summary::before{content:"–"}
+  details p{color:var(--dim);font-size:14.5px;margin:8px 0 0 19px}
+  code{background:rgba(255,255,255,.06);border:1px solid var(--line);
+    border-radius:6px;padding:1px 6px;font:12.5px ui-monospace,Menlo,monospace;
+    color:#dcc9ff}
+  a{color:var(--accent)}
+  footer{text-align:center;color:#6d5c8c;font-size:12.5px;padding-top:24px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#a874ff"/><stop offset="1" stop-color="#ff5ea8"/>
+        </linearGradient></defs>
+        <path d="M12 2.6c3.6 3 6.4 6.2 6.4 10a6.4 6.4 0 0 1-12.8 0c0-3.8 2.8-7 6.4-10Z"
+              stroke="url(#g)" stroke-width="1.7" stroke-linejoin="round"/>
+        <circle cx="12" cy="13.6" r="2.5" fill="url(#g)"/>
+      </svg>
+    </div>
+    <h1>Install <span>Suyeon</span></h1>
+    <p class="sub">Android 8.0+ · 5.2 MB · version 3.0</p>
+  </header>
+
+  <div class="card">
+    <a class="dl" href="moodify.apk" download rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M4 20h16" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Download APK
+    </a>
+    <div class="meta">
+      <span>version <b>3.0</b></span>
+      <span>size <b>5.2 MB</b></span>
+      <span>Android <b>8.0+</b></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="note" style="margin-bottom:0">
+      <b>Replacing an older copy?</b> Uninstall the previous version first.
+      New builds use a different signature, and Android will refuse to install
+      over the old one — it shows “App not installed” with no explanation.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Three steps</h2>
+    <ol>
+      <li>
+        <strong>Allow installs from your browser</strong>
+        <p>Tap the download, then on the prompt tap <b>Settings</b> and enable
+        <span class="path">Allow from this source</span>.</p>
+      </li>
+      <li>
+        <strong>Turn off the Play Protect scan</strong>
+        <p><span class="path">Settings</span> →
+        <span class="path">Google</span> →
+        <span class="path">Play Protect</span> →
+        <span class="path">⚙</span> →
+        turn off <span class="path">Scan apps with Play Protect</span>.
+        This app is not on the Play Store, so it has no reputation score and
+        gets flagged. You can turn the scan back on after installing.</p>
+      </li>
+      <li>
+        <strong>Install and open</strong>
+        <p>Tap the file again → <b>Install</b>. If a warning appears, choose
+        <b>More details</b> → <b>Install anyway</b>. Then open the app and
+        enable accessibility when it asks.</p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>Problems</h2>
+    <details>
+      <summary>“Unsafe app blocked” with no Install anyway</summary>
+      <p>That verdict is decided by Google, not by the phone. Turn off
+      <b>Scan apps with Play Protect</b> — the block only applies while the
+      scan is enabled.</p>
+    </details>
+    <details>
+      <summary>“App not installed”</summary>
+      <p>An older copy with a different signature is still installed. Uninstall
+      it from Settings → Apps first, then install this one.</p>
+    </details>
+    <details>
+      <summary>Install button greyed out</summary>
+      <p>Either the APK is still downloading, or your Android is older than
+      <b>8.0</b>. Re-download on Wi-Fi and retry.</p>
+    </details>
+    <details>
+      <summary>Chrome says “this type of file can harm your device”</summary>
+      <p>That is Chrome's generic APK warning, shown for every download outside
+      the Play Store. Tap <b>Download anyway</b>. It is not the Play Protect
+      verdict.</p>
+    </details>
+  </div>
+
+  <footer>
+    <p><a href="/">Open the live mirror →</a></p>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+# Never commit signing material — a leaked keystore lets anyone
+# publish an update that installs over the real app.
+release.keystore
+*.keystore
+*.jks
+keystore.properties
+
+# Local build output
+build/
+.gradle/
+local.properties
+*.iml
+.idea/
+
+# OS noise
+.DS_Store
+Thumbs.db
